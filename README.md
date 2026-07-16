@@ -1,0 +1,1 @@
+This is my portfolio page project. I'm going for a Windows 98 theme. Dunno why, just thought it'd be cool.
