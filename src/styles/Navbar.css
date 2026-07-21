@@ -1,0 +1,93 @@
+/* General Navbar */
+.taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #c0c0c0;
+
+    padding: 4px;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+}
+
+/* Put taskbar on the bottom */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* Start Button */
+.start-button {
+    background: #c0c0c0;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+
+    padding: 6px 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* When Clicked */
+.start-button:active {
+
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+
+}
+
+/* Links */
+.task-links {
+    display: flex;
+    gap: .5rem;
+}
+
+.task-links a {
+
+    text-decoration: none;
+
+    color: black;
+
+    padding: 6px 10px;
+
+    border: 2px solid transparent;
+}
+
+/* Links On Hover */
+.task-links a:hover {
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+
+}
+
+/* Clock */
+.clock {
+
+    padding: 6px 12px;
+
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+
+}

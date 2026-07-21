@@ -1,12 +1,47 @@
 import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
+
+// Navbar Icons
+import homeIcon from "../assets/icons/home.png";
+import projectsIcon from "../assets/icons/projects.png";
+import experienceIcon from "../assets/icons/experience.png";
+import contactIcon from "../assets/icons/contact.png";
 
 export default function Navbar() {
     return (
-        <nav>
-            <Link to ="/">Home</Link>{" | "}
-            <Link to="/projects">Projects</Link>{" | "}
-            <Link to="/experience">Experience</Link>{" | "}
-            <Link to ="/contact">Contact</Link>
+        <nav className="taskbar">
+            
+            <button className="start-button">
+                Start
+            </button>
+            
+            <section className="task-links">
+
+                <Link to ="/">
+                    <img src={homeIcon} alt="Home" />
+                    Home
+                </Link>
+
+                <Link to="/projects">
+                    <img src={projectsIcon} alt="Projects" />
+                    Projects
+                </Link>
+
+                <Link to="/experience">
+                    <img src={experienceIcon} alt="Experience" />
+                    Experience
+                </Link>
+                <Link to ="/contact">
+                    <img src={contactIcon} alt="Contact" />
+                    Contact
+                </Link>
+
+            </section>
+
+            <section className="clock">
+                3:05 PM
+            </section>
+
         </nav>
     );
 }
