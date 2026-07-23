@@ -14,6 +14,20 @@
   font-size: .8rem;
   text-decoration: none;
   cursor: pointer;
+
+  user-select: none;
+}
+
+.desktop-icon span {
+    margin-top: 4px;
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+}
+
+.desktop-icon.selected span{
+    background: #000080;
+    color: white;
 }
 
 .desktop-icon img {

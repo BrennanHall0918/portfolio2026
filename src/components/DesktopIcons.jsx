@@ -29,13 +29,19 @@ const desktopIcons = [
     }
 ];
 
-export default function DesktopIcons({ openWindow }) {
+export default function DesktopIcons({ openWindow, selectedIcon, setSelectedIcon }) {
     return (
         <section className="desktop-icons">
             {desktopIcons.map((icon)=> (
                 <div 
                     key={icon.id}
-                    className="desktop-icon"
+                    className={`desktop-icon ${
+                        selectedIcon === icon.id ? "selected" : ""
+                    }`}
+                    onClick={(e)=> {
+                        e.stopPropagation();
+                        setSelectedIcon(icon.id);
+                    }}
                     onDoubleClick={()=> openWindow(icon.id, icon.title)}>
                         <img src={icon.icon} alt={icon.title} />
                         <span>{icon.title}</span>

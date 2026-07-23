@@ -18,6 +18,8 @@ export default function Desktop() {
     }
   ]);
 
+  const [selectedIcon, setSelectedIcon] = useState(null);
+
   function openWindow(id, title) {
     const existing = windows.find(window => window.id === id);
 
@@ -30,7 +32,7 @@ export default function Desktop() {
       {
         id,
         title,
-        ope: true,
+        open: true,
         position: {
           x: 250,
           y: 120
@@ -58,8 +60,13 @@ export default function Desktop() {
   }
 
   return (
-    <section className="desktop">
-      <DesktopIcons openWindow={openWindow} />
+    <section 
+      className="desktop" 
+      onClick={()=> setSelectedIcon(null)}>
+      <DesktopIcons 
+        openWindow={openWindow}
+        selectedIcon={selectedIcon}
+        setSelectedIcon={setSelectedIcon} />
 
       <WindowManager
         windows={windows}
