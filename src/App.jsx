@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/Desktop";
 
 // Routes
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import Experience from "./pages/Experience";
-import Contact from "./pages/Contact";
+import Home from "./windows/Home";
+import Projects from "./windows/Projects";
+import Experience from "./windows/Experience";
+import Contact from "./windows/Contact";
 
 function App() {
   return (

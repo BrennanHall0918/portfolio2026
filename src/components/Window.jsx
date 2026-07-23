@@ -1,7 +1,7 @@
 import { Rnd } from "react-rnd";
 import "../styles/Window.css";
 
-export default function Window({ position, size, onPositionChange, onSizeChange, children }) {
+export default function Window({ title, position, size, onPositionChange, onSizeChange, onClose, children }) {
   return (
     <Rnd
       className="window"
@@ -22,7 +22,7 @@ export default function Window({ position, size, onPositionChange, onSizeChange,
       minHeight={200}
     >
       <section className="window-titlebar">
-        <span>Window</span>
+        <span>{title}</span>
       </section>
 
       <section className="window-content">
