@@ -1,0 +1,104 @@
+/* Desktop */
+.desktop{
+    background: #008080;
+    min-height: 100vh;
+
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.desktop-icons{
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.5rem;
+    width: 90px;
+}
+
+.desktop-icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    font-size: .8rem;
+
+    cursor: pointer;
+}
+
+.desktop-icon img{
+    width: 40px;
+    margin-bottom: .5rem;
+}
+
+/* Intro Window */
+.window{
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 550px;
+
+    background: #c0c0c0;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+}
+
+.window-titlebar{
+    background: #010081;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: .3rem .5rem;
+
+    font-weight: bold;
+}
+
+/* Window Buttons */
+.window-buttons{
+    display: flex;
+    gap: 5px;
+}
+
+.window-buttons button{
+    width: 20px;
+    height: 20px;
+
+    background: #c0c0c0;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+
+    cursor: pointer;
+}
+
+.window-content{
+    padding: 1.5rem;
+}
+
+.welcome-button{
+    margin-top: 1rem;
+
+    padding: .5rem 1rem;
+
+    background: #c0c0c0;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+
+    cursor: pointer;
+}

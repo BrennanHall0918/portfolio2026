@@ -1,93 +1,69 @@
-/* General Navbar */
-.taskbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    background: #c0c0c0;
-
-    padding: 4px;
-
-    border-top: 2px solid white;
-    border-left: 2px solid white;
-
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-}
-
-/* Put taskbar on the bottom */
+/* Taskbar styling */
 .taskbar {
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-}
 
-/* Start Button */
-.start-button {
+    width: 100%;
+    height: 40px;
+
     background: #c0c0c0;
 
+    display: flex;
+    align-items: center;
+
+    padding: 3px;
+
     border-top: 2px solid white;
-    border-left: 2px solid white;
 
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
+    box-sizing: border-box;
 
-    padding: 6px 12px;
-
-    font-weight: bold;
-
-    cursor: pointer;
+    z-index: 1000;
 }
 
-/* When Clicked */
-.start-button:active {
-
-    border-top: 2px solid #808080;
-    border-left: 2px solid #808080;
-
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-
-}
-
-/* Links */
+/* The buttons */
 .task-links {
     display: flex;
-    gap: .5rem;
+    gap: 4px;
+
+    margin-left: 8px;
 }
 
-.task-links a {
+.task-button {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+    padding: 5px 10px;
+
+    background: #c0c0c0;
 
     text-decoration: none;
-
     color: black;
-
-    padding: 6px 10px;
-
-    border: 2px solid transparent;
-}
-
-/* Links On Hover */
-.task-links a:hover {
 
     border-top: 2px solid white;
     border-left: 2px solid white;
-
     border-right: 2px solid #808080;
     border-bottom: 2px solid #808080;
 
+    font-family: Tahoma, sans-serif;
+    font-size: 14px;
 }
 
-/* Clock */
-.clock {
+.task-button:hover {
+    background: #d4d0c8;
+}
 
-    padding: 6px 12px;
-
+/* Click Animation */
+.task-button:active {
     border-top: 2px solid #808080;
     border-left: 2px solid #808080;
-
     border-right: 2px solid white;
     border-bottom: 2px solid white;
+}
 
+/* Icon Styling */
+.task-button img {
+    width: 18px;
+    height: 18px;
 }

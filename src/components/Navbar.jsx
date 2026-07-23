@@ -17,21 +17,21 @@ export default function Navbar() {
             
             <section className="task-links">
 
-                <Link to ="/">
+                <Link to ="/" className="task-button">
                     <img src={homeIcon} alt="Home" />
                     Home
                 </Link>
 
-                <Link to="/projects">
+                <Link to="/projects" className="task-button">
                     <img src={projectsIcon} alt="Projects" />
                     Projects
                 </Link>
 
-                <Link to="/experience">
+                <Link to="/experience" className="task-button">
                     <img src={experienceIcon} alt="Experience" />
                     Experience
                 </Link>
-                <Link to ="/contact">
+                <Link to ="/contact" className="task-button">
                     <img src={contactIcon} alt="Contact" />
                     Contact
                 </Link>
