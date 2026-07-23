@@ -1,0 +1,49 @@
+.window {
+  position: absolute;
+
+  background: #c0c0c0;
+
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+
+  box-sizing: border-box;
+}
+
+.window-titlebar {
+  background: #010081;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: .3rem .5rem;
+
+  font-weight: bold;
+}
+
+/* Window Buttons */
+.window-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.window-buttons button {
+  width: 20px;
+  height: 20px;
+
+  background: #c0c0c0;
+
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+
+  cursor: pointer;
+}
+
+.window-content {
+  padding: 1.5rem;
+}

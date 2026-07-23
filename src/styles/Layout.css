@@ -1,0 +1,39 @@
+/* Desktop */
+.desktop {
+  background: #008080;
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 0 0 90px;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: white;
+  font-size: .8rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.desktop-icon img {
+  width: 40px;
+  margin-bottom: .5rem;
+}
