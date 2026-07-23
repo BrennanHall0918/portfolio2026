@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 
 // Navbar Icons
@@ -16,26 +17,35 @@ export default function Navbar() {
             </button>
             
             <section className="task-links">
-
-                <Link to ="/" className="task-button">
+                <NavLink 
+                    to="/" 
+                    end 
+                    className={({ isActive }) => isActive ? "task-button active" : "task-button"}
+                >
                     <img src={homeIcon} alt="Home" />
                     Home
-                </Link>
-
-                <Link to="/projects" className="task-button">
+                </NavLink>
+                <NavLink 
+                    to="/projects" 
+                    className={({ isActive }) => isActive ? "task-button active" : "task-button"}
+                >
                     <img src={projectsIcon} alt="Projects" />
                     Projects
-                </Link>
-
-                <Link to="/experience" className="task-button">
+                </NavLink>
+                <NavLink 
+                    to="/experience" 
+                    className={({ isActive }) => isActive ? "task-button active" : "task-button"}
+                >
                     <img src={experienceIcon} alt="Experience" />
                     Experience
-                </Link>
-                <Link to ="/contact" className="task-button">
+                </NavLink>
+                <NavLink 
+                    to="/contact" 
+                    className={({ isActive }) => isActive ? "task-button active" : "task-button"}
+                >
                     <img src={contactIcon} alt="Contact" />
                     Contact
-                </Link>
-
+                </NavLink>
             </section>
 
             <section className="clock">
