@@ -1,12 +1,14 @@
 import { Rnd } from "react-rnd";
 import "../styles/Window.css";
 
-export default function Window({ title, position, size, onPositionChange, onSizeChange, onClose, children }) {
+export default function Window({ title, position, size, zIndex, onFocus, onPositionChange, onSizeChange, onClose, children }) {
   return (
     <Rnd
       className="window"
       position={position}
       size={size}
+      style={{ zIndex }}
+      onMouseDown={onFocus}
       onDragStop={(e, data) => {
         onPositionChange({ x: data.x, y: data.y });
       }}

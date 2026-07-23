@@ -15,21 +15,23 @@ const windowComponents = {
 export default function WindowManager({
     windows,
     closeWindow,
-    updateWindow
+    updateWindow,
+    bringToFront
 }) {
     return (
         <>
             {windows.map(window => {
-
                 const Component = windowComponents[window.id];
 
                 return (
                     <Window
                         key={window.id}
                         title={window.title}
+                        onFocus={()=> bringToFront(window.id)}
 
                         position={window.position}
                         size={window.size}
+                        zIndex={window.zIndex}
 
                         onClose={()=> closeWindow(window.id)}
 

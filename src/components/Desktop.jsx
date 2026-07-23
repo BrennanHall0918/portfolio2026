@@ -11,10 +11,11 @@ export default function Desktop() {
   const [windows, setWindows] = useState([
     {
       id: "home",
-      title: "My Computer",
+      title: "Home",
       open: true,
       position: { x: 200, y: 100 },
-      size: { width: 550, height: 400 }
+      size: { width: 550, height: 400 },
+      zIndex: 1
     }
   ]);
 
@@ -24,8 +25,11 @@ export default function Desktop() {
     const existing = windows.find(window => window.id === id);
 
     if (existing) {
+      bringToFront(id);
       return;
     }
+
+    const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
 
     setWindows([
       ...windows,
@@ -40,11 +44,21 @@ export default function Desktop() {
         size: {
           width: 550,
           height: 400
-        }
+        },
+        zIndex: highestZ + 1
       }
     ]);
   }
 
+  function bringToFront(id) {
+    const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
+
+    setWindows(
+      windows.map(window =>
+        window.id === id ? { ...window, zIndex: highestZ + 1 } : window
+      )
+    );
+  }
   function closeWindow(id) {
     setWindows(
       windows.filter(window => window.id !== id)
@@ -72,6 +86,7 @@ export default function Desktop() {
         windows={windows}
         closeWindow={closeWindow}
         updateWindow={updateWindow}
+        bringToFront={bringToFront}
       />
 
       <Navbar />
