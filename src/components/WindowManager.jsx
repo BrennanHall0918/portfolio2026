@@ -18,6 +18,7 @@ export default function WindowManager({
     updateWindow,
     bringToFront
 }) {
+    const highestZ = Math.max(...windows.map(window => window.zIndex), 0);
     return (
         <>
             {windows.map(window => {
@@ -34,6 +35,7 @@ export default function WindowManager({
                         zIndex={window.zIndex}
 
                         minimized={window.minimized}
+                        isActive={window.zIndex === highestZ}
                         onClose={()=> closeWindow(window.id)}
                         onMinimize={()=> updateWindow(window.id, {minimized: true })}
 

@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
 
-  color: white;
+  color: var(--win98-white);
   font-size: .8rem;
   text-decoration: none;
   cursor: pointer;
@@ -20,17 +20,28 @@
 
 .desktop-icon span {
     margin-top: 4px;
-    color: white;
+    color: var(--win98-white);
     padding: 2px 4px;
     text-align: center;
 }
 
 .desktop-icon.selected span{
-    background: #000080;
-    color: white;
+    background: var(--win98-dark-blue);
+    color: var(--win98-white);
 }
 
 .desktop-icon img {
   width: 40px;
   margin-bottom: .5rem;
+}
+
+.desktop-icon.open img {
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: var(--bevel-pressed);
+  padding: 4px;
+}
+
+.desktop-icon.open span {
+  outline: 1px dotted var(--win98-white);
+  outline-offset: 1px;
 }

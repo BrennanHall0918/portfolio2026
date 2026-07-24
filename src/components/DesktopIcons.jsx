@@ -29,24 +29,27 @@ const desktopIcons = [
     }
 ];
 
-export default function DesktopIcons({ openWindow, selectedIcon, setSelectedIcon }) {
-    return (
-        <section className="desktop-icons">
-            {desktopIcons.map((icon)=> (
-                <div 
-                    key={icon.id}
-                    className={`desktop-icon ${
-                        selectedIcon === icon.id ? "selected" : ""
-                    }`}
-                    onClick={(e)=> {
-                        e.stopPropagation();
-                        setSelectedIcon(icon.id);
-                    }}
-                    onDoubleClick={()=> openWindow(icon.id, icon.title)}>
-                        <img src={icon.icon} alt={icon.title} />
-                        <span>{icon.title}</span>
-                </div>
-            ))}
-        </section>
-    );
+export default function DesktopIcons({ openWindow, selectedIcon, setSelectedIcon, windows }) {
+  return (
+    <section className="desktop-icons">
+      {desktopIcons.map((icon) => {
+        const isOpen = windows.some(w => w.id === icon.id);
+
+        return (
+          <div 
+            key={icon.id}
+            className={`desktop-icon ${selectedIcon === icon.id ? "selected" : ""} ${isOpen ? "open" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedIcon(icon.id);
+            }}
+            onDoubleClick={() => openWindow(icon.id, icon.title)}
+          >
+            <img src={icon.icon} alt={icon.title} />
+            <span>{icon.title}</span>
+          </div>
+        );
+      })}
+    </section>
+  );
 }

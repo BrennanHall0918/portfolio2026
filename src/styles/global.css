@@ -1,3 +1,26 @@
+:root {
+    --win98-grey: #818181;
+    --win98-light-grey: #c3c3c3;
+    --win98-white: #fdffff;
+    --win98-black: #000000;
+
+    --win98-dark-blue: #010081;
+    --win98-teal: #008080;
+    --win98-pink: #ff0081;
+
+    --bevel-raised:
+        inset 1px 1px 0 var(--win98-white),
+        inset -1px -1px 0 var(--win98-grey),
+        inset 2px 2px 0 var(--win98-light-grey),
+        inset -2px -2px 0 var(--win98-black);
+
+    --bevel-presed:
+        inset -1px -1px 0 var(--win98-white),
+        inset 1px 1px 0 var(--win98-grey),
+        inset -2px -2px 0 var(--win98-light-grey),
+        inset 2px 2px 0 var(--win98-black);
+}
+
 *,
 *::before,
 *::after {
@@ -15,4 +38,5 @@ body {
     margin: 0;
     overflow-x: hidden;
     font-family: Tahoma, sans-serif;
+    user-select: none;
 }

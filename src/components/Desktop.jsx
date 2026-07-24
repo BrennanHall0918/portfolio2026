@@ -91,7 +91,8 @@ export default function Desktop() {
       <DesktopIcons 
         openWindow={openWindow}
         selectedIcon={selectedIcon}
-        setSelectedIcon={setSelectedIcon} />
+        setSelectedIcon={setSelectedIcon}
+        windows={windows} />
 
       <WindowManager
         windows={windows}

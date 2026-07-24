@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Rnd } from "react-rnd";
 import "../styles/Window.css";
 
-export default function Window({ title, position, size, zIndex, minimized, onFocus, onPositionChange, onSizeChange, onClose, onMinimize, children }) {
+export default function Window({ title, position, size, zIndex, minimized, isActive, onFocus, onPositionChange, onSizeChange, onClose, onMinimize, children }) {
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizeState, setPreMaximizeState] = useState(null);
+  const [isAnimatingSize, setIsAnimatingize] = useState(false);
 
   function handleMaximize() {
+    setIsAnimatingize(true);
+    setTimeout(()=> setIsAnimatingize(false), 200);
+
     if (isMaximized) {
       onPositionChange(preMaximizeState.position);
       onSizeChange(preMaximizeState.size);
@@ -23,10 +27,10 @@ export default function Window({ title, position, size, zIndex, minimized, onFoc
 
   return (
     <Rnd
-      className="window"
+      className={`window ${isActive ? "active" : ""} ${minimized ? "minimized" : ""} ${isAnimatingSize ? "resizing-animated" : ""}`}
       position={position}
       size={size}
-      style={{ zIndex, display: minimized ? "none" : "block" }}
+      style={{ zIndex }}
       onMouseDown={onFocus}
       onDragStop={(e, data) => onPositionChange({ x: data.x, y: data.y })}
       onResizeStop={(e, direction, ref, delta, newPosition) => {
@@ -39,17 +43,19 @@ export default function Window({ title, position, size, zIndex, minimized, onFoc
       disableDragging={isMaximized}
       enableResizing={!isMaximized}
     >
-      <section className="window-titlebar">
-        <span>{title}</span>
-        <div className="window-buttons">
-          <button onClick={onMinimize}>_</button>
-          <button onClick={handleMaximize}>[]</button>
-          <button onClick={onClose}>X</button>
-        </div>
-      </section>
-      <section className="window-content">
-        {children}
-      </section>
+      <div className={`window-inner ${minimized ? "minimized" : ""}`}>
+        <section className={`window-titlebar ${isActive ? "active" : "inactive"}`}>
+          <span>{title}</span>
+          <div className="window-buttons">
+            <button className="minimize-btn" onClick={onMinimize}></button>
+            <button className="maximize-btn" onClick={handleMaximize}></button>
+            <button className="close-btn" onClick={onClose}></button>
+          </div>
+        </section>
+        <section className="window-content">
+          {children}
+        </section>
+      </div>
     </Rnd>
   );
 }
