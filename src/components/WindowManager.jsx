@@ -33,7 +33,9 @@ export default function WindowManager({
                         size={window.size}
                         zIndex={window.zIndex}
 
+                        minimized={window.minimized}
                         onClose={()=> closeWindow(window.id)}
+                        onMinimize={()=> updateWindow(window.id, {minimized: true })}
 
                         onPositionChange={(position)=>
                             updateWindow(window.id, {position})

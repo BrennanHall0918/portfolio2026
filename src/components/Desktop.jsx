@@ -13,6 +13,7 @@ export default function Desktop() {
       id: "home",
       title: "Home",
       open: true,
+      minimized: false,
       position: { x: 200, y: 100 },
       size: { width: 550, height: 400 },
       zIndex: 1
@@ -37,6 +38,7 @@ export default function Desktop() {
         id,
         title,
         open: true,
+        minimized: false,
         position: {
           x: 250,
           y: 120
@@ -50,15 +52,24 @@ export default function Desktop() {
     ]);
   }
 
-  function bringToFront(id) {
-    const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
+  function handleTaskButtonClick(id) {
+    const target = windows.find(window => window.id === id);
 
-    setWindows(
-      windows.map(window =>
-        window.id === id ? { ...window, zIndex: highestZ + 1 } : window
-      )
-    );
+    if (target.minimized) {
+      updateWindow(id, { minimized: false });
+    }
+    bringToFront(id);
   }
+
+  function bringToFront(id) {
+    setWindows(prevWindows => {
+      const highestZ = Math.max(...prevWindows.map(w => w.zIndex), 0);
+      return prevWindows.map(window =>
+        window.id === id ? { ...window, zIndex: highestZ + 1 } : window
+      );
+    });
+  }
+
   function closeWindow(id) {
     setWindows(
       windows.filter(window => window.id !== id)
@@ -66,8 +77,8 @@ export default function Desktop() {
   }
 
   function updateWindow(id, updates) {
-    setWindows(
-      windows.map(window =>
+    setWindows(prevWindows =>
+      prevWindows.map(window =>
         window.id === id ? {...window, ...updates } : window
       )
     );
@@ -89,7 +100,7 @@ export default function Desktop() {
         bringToFront={bringToFront}
       />
 
-      <Navbar />
+      <Navbar windows={windows} onTaskButtonClick={handleTaskButtonClick} />
     </section>
   );
 }
