@@ -27,6 +27,13 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "MS Sans Serif";
+    src: url("../assets/fonts/MS\ Sans\ Serif.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 body,
 #root {
@@ -37,6 +44,12 @@ body,
 body {
     margin: 0;
     overflow-x: hidden;
-    font-family: Tahoma, sans-serif;
     user-select: none;
+
+    font-family: "MS Sans Serif", Tahoma, sans-serif;
+}
+
+::selection {
+    background: var(--win98-dark-blue);
+    color: var(--win98-white);
 }

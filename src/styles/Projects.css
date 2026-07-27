@@ -1,0 +1,113 @@
+.explorer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 0.8rem;
+}
+
+/* Menu bar */
+.explorer-menubar {
+  display: flex;
+  gap: 1rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--win98-light-grey);
+  border-bottom: 1px solid var(--win98-grey);
+  user-select: none;
+}
+
+.explorer-menubar span:hover {
+  background: var(--win98-dark-blue);
+  color: var(--win98-white);
+  padding: 0 2px;
+}
+
+/* Toolbar */
+.explorer-toolbar {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.3rem;
+  background: var(--win98-light-grey);
+  border-bottom: 1px solid var(--win98-grey);
+}
+
+.toolbar-btn {
+  font-family: inherit;
+  font-size: inherit;
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-raised);
+  border: none;
+  padding: 0.2rem 0.5rem;
+  cursor: not-allowed;
+  color: var(--win98-grey);
+}
+
+/* Address bar */
+.explorer-addressbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  background: var(--win98-light-grey);
+  border-bottom: 1px solid var(--win98-grey);
+}
+
+.address-input {
+  flex: 1;
+  background: var(--win98-white);
+  box-shadow: var(--bevel-pressed);
+  padding: 0.2rem 0.5rem;
+  min-width: 0; /* lets flex child shrink below content size instead of overflowing */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Content pane — the icon grid */
+.explorer-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--win98-white);
+  overflow-y: auto;
+  align-content: start;
+}
+
+.explorer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.explorer-item img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+  image-rendering: pixelated;
+}
+
+.explorer-item span {
+  font-size: 0.75rem;
+  word-break: break-word;
+}
+
+.explorer-item:hover {
+  background: rgba(0, 0, 128, 0.1);
+}
+
+.explorer-item.selected {
+  background: var(--win98-dark-blue);
+  color: var(--win98-white);
+}
+
+/* Status bar */
+.explorer-statusbar {
+  padding: 0.25rem 0.5rem;
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-pressed);
+  font-size: 0.75rem;
+}
