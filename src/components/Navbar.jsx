@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import "../styles/Navbar.css";
 
 import homeIcon from "../assets/icons/home.png";
@@ -12,12 +13,58 @@ const windowIcons = {
   contact: contactIcon,
 };
 
-export default function Navbar({ windows, onTaskButtonClick }) {
+const startMenuItems = [
+  { id: "home", title: "Home" },
+  { id: "projects", title: "Projects" },
+  { id: "experience", title: "Experience" },
+  { id: "contact", title: "Contact" },
+];
+
+export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
   const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
+  const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+  const startMenuRef = useRef(null);
+
+  useEffect(()=> {
+    function handleClickOutside(e) {
+      if (startMenuRef.current && !startMenuRef.current.contains(e.target)) {
+        setIsStartMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function handleStartMenuClick(id, title) {
+    openWindow(id, title);
+    setIsStartMenuOpen(false);
+  }
 
   return (
-    <nav className="taskbar">
-      <button className="start-button">Start</button>
+    <nav className="taskbar" ref={startMenuRef}>
+      <div className="start-wrapper">
+        <button
+          className={isStartMenuOpen ? "start-button active" : "start-button"}
+          onClick={() => setIsStartMenuOpen(prev => !prev)}
+        >
+          Start
+        </button>
+
+        {isStartMenuOpen && (
+          <div className="start-menu">
+            {startMenuItems.map(item => (
+              <button
+                key={item.id}
+                className="start-menu-item"
+                onClick={() => handleStartMenuClick(item.id, item.title)}
+              >
+                <img src={windowIcons[item.id]} alt={item.title} />
+                {item.title}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <section className="task-links">
         {windows.map(window => {

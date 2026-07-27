@@ -71,9 +71,7 @@ export default function Desktop() {
   }
 
   function closeWindow(id) {
-    setWindows(
-      windows.filter(window => window.id !== id)
-    );
+    setWindows(prevWindows => prevWindows.filter(window => window.id !== id));
   }
 
   function updateWindow(id, updates) {
@@ -101,7 +99,7 @@ export default function Desktop() {
         bringToFront={bringToFront}
       />
 
-      <Navbar windows={windows} onTaskButtonClick={handleTaskButtonClick} />
+      <Navbar windows={windows} onTaskButtonClick={handleTaskButtonClick} openWindow={openWindow} />
     </section>
   );
 }

@@ -99,3 +99,48 @@
   box-shadow: var(--bevel-pressed);
   white-space: nowrap;
 }
+
+/* Start Menu */
+.start-wrapper {
+  position: relative;
+}
+
+.start-menu {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 0;
+  min-width: 160px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-raised);
+  padding: 2px;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.start-menu-item:hover {
+  background: var(--win98-dark-blue);
+  color: var(--win98-white);
+}
+
+.start-menu-item img {
+  width: 16px;
+  height: 16px;
+}
