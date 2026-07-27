@@ -111,3 +111,58 @@
   box-shadow: var(--bevel-pressed);
   font-size: 0.75rem;
 }
+
+.explorer-status-message {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 16px;
+  background: var(--win98-white);
+  box-shadow: var(--bevel-pressed);
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 40%;
+  background: var(--win98-dark-blue);
+  animation: loading-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes loading-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+.explorer-error-dialog {
+  grid-column: 1 / -1;
+  width: 300px;
+  margin: 2rem auto;
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-raised);
+}
+
+.explorer-error-titlebar {
+  background: var(--win98-dark-blue);
+  color: var(--win98-white);
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+}
+
+.explorer-error-body {
+  padding: 1rem;
+  text-align: center;
+}
+
+.error-detail {
+  font-size: 0.75rem;
+  color: var(--win98-grey);
+  margin-top: 0.5rem;
+}

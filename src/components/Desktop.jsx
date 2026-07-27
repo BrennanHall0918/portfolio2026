@@ -87,18 +87,16 @@ export default function Desktop() {
   }
 
   function closeWindow(id) {
-    setWindows(prevWindows => {
-      const remaining = prevWindows.filter(w => w.id !== id);
+    const remaining = windows.filter(window => window.id !== id);
 
-      if (remaining.length > 0) {
-        const next = remaining.reduce((a, b) => (a.zIndex > b.zIndex ? a : b));
-        navigate(pathForWindow(next.id));
-      } else {
-        navigate("/");
-      }
+    if (remaining.length > 0) {
+      const next = remaining.reduce ((a, b)=> (a.zIndex > b.zIndex ? a : b));
+      navigate(pathForWindow(next.id));
+    } else {
+      navigate("/");
+    }
 
-      return remaining;
-    });
+    setWindows(remaining);
   }
 
   function updateWindow(id, updates) {

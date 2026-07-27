@@ -1,15 +1,14 @@
+import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 import "../styles/Projects.css";
 import folderIcon from "../assets/icons/folder.png";
 
-// Placeholder data
-const placeholderProjects = [
-  { id: 1, name: "portfolio2026" },
-  { id: 2, name: "weather-app" },
-  { id: 3, name: "task-tracker" },
-  { id: 4, name: "chat-client" },
-];
-
 export default function Projects() {
+  const navigate = useNavigate();
+  const { data: repos, isLoading, error } = useFetch(
+    "https://api.github.com/users/BrennanHall0918/repos"
+  );
+
   return (
     <div className="explorer">
       <div className="explorer-menubar">
@@ -33,16 +32,43 @@ export default function Projects() {
       </div>
 
       <div className="explorer-content">
-        {placeholderProjects.map((project) => (
-          <div key={project.id} className="explorer-item">
+        {isLoading && (
+          <div className="explorer-status-message">
+            <div className="loading-bar">
+              <div className="loading-bar-fill"></div>
+            </div>
+            <span>Reading folder contents...</span>
+          </div>
+        )}
+
+        {error && (
+          <div className="explorer-error-dialog">
+            <div className="explorer-error-titlebar">
+              <span>Error</span>
+            </div>
+            <div className="explorer-error-body">
+              <p>Could not read from C:\My Computer\Projects</p>
+              <p className="error-detail">{error}</p>
+            </div>
+          </div>
+        )}
+
+        {!isLoading && !error && repos && repos.map((repo) => (
+          <div
+            key={repo.id}
+            className="explorer-item"
+            onDoubleClick={() => navigate(`/projects/${repo.id}`)}
+          >
             <img src={folderIcon} alt="" />
-            <span>{project.name}</span>
+            <span>{repo.name}</span>
           </div>
         ))}
       </div>
 
       <div className="explorer-statusbar">
-        <span>{placeholderProjects.length} object(s)</span>
+        <span>
+          {isLoading ? "Loading..." : error ? "Error" : `${repos?.length ?? 0} object(s)`}
+        </span>
       </div>
     </div>
   );
