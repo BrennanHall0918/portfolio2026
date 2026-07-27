@@ -35,8 +35,8 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  function handleStartMenuClick(id, title) {
-    openWindow(id, title);
+  function handleStartMenuClick(id) {
+    openWindow(id);
     setIsStartMenuOpen(false);
   }
 
@@ -56,7 +56,7 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
               <button
                 key={item.id}
                 className="start-menu-item"
-                onClick={() => handleStartMenuClick(item.id, item.title)}
+                onClick={() => handleStartMenuClick(item.id)}
               >
                 <img src={windowIcons[item.id]} alt={item.title} />
                 {item.title}

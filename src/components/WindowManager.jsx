@@ -12,6 +12,15 @@ const windowComponents = {
     contact: Contact
 };
 
+function getComponentForWindow(id) {
+  if (windowComponents[id]) return windowComponents[id];
+  if (id.startsWith("project-")) {
+    const projectId = id.replace("project-", "");
+    return () => <p>Project #{projectId} — detail view coming soon</p>;
+  }
+  return () => null;
+}
+
 export default function WindowManager({
     windows,
     closeWindow,
@@ -22,7 +31,7 @@ export default function WindowManager({
     return (
         <>
             {windows.map(window => {
-                const Component = windowComponents[window.id];
+                const Component = getComponentForWindow(window.id);
 
                 return (
                     <Window

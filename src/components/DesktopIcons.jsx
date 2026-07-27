@@ -43,7 +43,7 @@ export default function DesktopIcons({ openWindow, selectedIcon, setSelectedIcon
               e.stopPropagation();
               setSelectedIcon(icon.id);
             }}
-            onDoubleClick={() => openWindow(icon.id, icon.title)}
+            onDoubleClick={() => openWindow(icon.id)}
           >
             <img src={icon.icon} alt={icon.title} />
             <span>{icon.title}</span>
