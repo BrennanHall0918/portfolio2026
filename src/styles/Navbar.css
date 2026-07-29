@@ -94,10 +94,21 @@
 
 /* Clock */
 .clock {
+  min-width: 68px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: var(--win98-light-grey);
-  padding: 0.25rem 0.6rem;
   box-shadow: var(--bevel-pressed);
+
+  font-family: Tahoma, "MS Sans Serif", sans-serif;
+  font-size: 0.75rem;
   white-space: nowrap;
+
+  padding: 0 8px;
 }
 
 /* Start Menu */

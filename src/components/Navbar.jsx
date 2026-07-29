@@ -40,6 +40,27 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
     setIsStartMenuOpen(false);
   }
 
+  const [time, setTime] = useState("");
+
+  useEffect(()=> {
+    function updateClock() {
+      const now = new Date();
+
+      setTime(
+        now.toLocaleTimeString([], {
+          hour: "numeric",
+          minute: "2-digit",
+        })
+      );
+    }
+
+    updateClock();
+
+    const interval = setInterval(updateClock, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <nav className="taskbar" ref={startMenuRef}>
       <div className="start-wrapper">
@@ -82,7 +103,7 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
         })}
       </section>
 
-      <section className="clock">3:05 PM</section>
+      <section className="clock">{time}</section>
     </nav>
   );
 }
