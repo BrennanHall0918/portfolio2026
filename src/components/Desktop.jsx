@@ -1,6 +1,10 @@
 import { useState, createContext } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
+import useIsMobile from "../hooks/useIsMobile";
+import MobileWindow from "./MobileWindow";
+import getWindowContent from "../utils/getWindowContent";
+
 import Navbar from "./Navbar";
 import WindowManager from "./WindowManager";
 import DesktopIcons from "./DesktopIcons";
@@ -102,6 +106,48 @@ export default function Desktop() {
   function updateWindow(id, updates) {
     setWindows(prevWindows =>
       prevWindows.map(w => (w.id === id ? { ...w, ...updates } : w))
+    );
+  }
+
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    const topWindow = windows
+      .filter(w => !w.minimized)
+      .reduce((a, b) => (!a || b.zIndex > a.zIndex ? b : a), null);
+
+    return (
+      <DesktopSyncContext.Provider value={{ syncWindowFromRoute }}>
+        <section className="desktop mobile-desktop">
+          {!topWindow && (
+            <DesktopIcons
+              openWindow={openWindow}
+              selectedIcon={selectedIcon}
+              setSelectedIcon={setSelectedIcon}
+              windows={windows}
+            />
+          )}
+
+          {topWindow && (
+            <MobileWindow
+              title={topWindow.title}
+              onClose={() => closeWindow(topWindow.id)}
+            >
+              {getWindowContent(topWindow.id)}
+            </MobileWindow>
+          )}
+
+          <Navbar
+            windows={windows}
+            onTaskButtonClick={handleTaskButtonClick}
+            openWindow={openWindow}
+          />
+
+          <div style={{ display: "none" }}>
+            <Outlet />
+          </div>
+        </section>
+      </DesktopSyncContext.Provider>
     );
   }
 

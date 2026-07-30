@@ -1,0 +1,43 @@
+.mobile-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 2.5rem); /* leaves room for the taskbar at the bottom */
+  background: var(--win98-light-grey);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.mobile-window-titlebar {
+  background: linear-gradient(90deg, var(--win98-dark-blue), #1084d0);
+  color: var(--win98-white);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.mobile-back-btn {
+  background: var(--win98-light-grey);
+  color: var(--win98-black);
+  box-shadow: var(--bevel-raised);
+  border: none;
+  padding: 0.3rem 0.6rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
+.mobile-back-btn:active {
+  box-shadow: var(--bevel-pressed);
+}
+
+.mobile-window-content {
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
