@@ -1,13 +1,52 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <h1>Brennan Hall</h1>
-      <h2>Software Developer</h2>
-      <p>Welcome to my portfolio.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quo eum voluptatum, accusamus eaque fugit maxime explicabo ipsa deleniti beatae ducimus nostrum commodi nihil itaque, quod a. Dolor, sunt officia.</p>
-      <button className="welcome-button">View Projects</button>
-    </>
+    <div className="home-content">
+      <div className="home-header">
+        <h1>Brennan Hall</h1>
+        <h2>Software Developer</h2>
+      </div>
+
+      <p>
+        Entry-level software developer with hands-on experience designing and
+        building web applications using JavaScript, SQL, HTML, CSS, and C.
+        Comfortable working with relational databases, version control, and
+        collaborative development workflows — with a strong foundation in
+        problem-solving and a quick ability to pick up new technologies.
+      </p>
+
+      <div className="home-quicklinks">
+        <a
+          href="https://github.com/BrennanHall0918"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="home-link"
+        >
+          GitHub
+        </a>
+        
+        <a
+          href="https://linkedin.com/in/brennan-hall-969071369/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="home-link"
+        >
+          LinkedIn
+        </a>
+      </div>
+
+      <div className="home-buttons">
+        <button className="welcome-button" onClick={() => navigate("/projects")}>
+          View Projects
+        </button>
+        <button className="welcome-button" onClick={() => navigate("/experience")}>
+          View Experience
+        </button>
+      </div>
+    </div>
   );
 }
