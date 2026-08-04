@@ -9,6 +9,8 @@ import Contact from "../windows/Contact";
 import getWindowContent from "../utils/getWindowContent";
 
 export default function WindowManager({ windows, closeWindow, updateWindow, bringToFront }) {
+  const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
+  
   return (
     <>
       {windows.map(window => (
@@ -20,7 +22,7 @@ export default function WindowManager({ windows, closeWindow, updateWindow, brin
           size={window.size}
           zIndex={window.zIndex}
           minimized={window.minimized}
-          isActive={/* unchanged from your existing logic */ true}
+          isActive={window.zIndex === highestZ}
           onClose={() => closeWindow(window.id)}
           onMinimize={() => updateWindow(window.id, { minimized: true })}
           onPositionChange={(position) => updateWindow(window.id, { position })}
