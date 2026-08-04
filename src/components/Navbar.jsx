@@ -3,12 +3,14 @@ import "../styles/Navbar.css";
 
 import homeIcon from "../assets/icons/home.png";
 import projectsIcon from "../assets/icons/projects.png";
+import detailsIcon from "../assets/icons/details.png";
 import experienceIcon from "../assets/icons/experience.png";
 import contactIcon from "../assets/icons/contact.png";
 
 const windowIcons = {
   home: homeIcon,
   projects: projectsIcon,
+  details: detailsIcon,
   experience: experienceIcon,
   contact: contactIcon,
 };
@@ -20,12 +22,18 @@ const startMenuItems = [
   { id: "contact", title: "Contact" },
 ];
 
+function getIconForWindow(id) {
+  if (windowIcons[id]) return windowIcons[id];
+  if (id.startsWith("project-")) return detailsIcon;
+  return null;
+}
+
 export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
   const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const startMenuRef = useRef(null);
 
-  useEffect(()=> {
+  useEffect(() => {
     function handleClickOutside(e) {
       if (startMenuRef.current && !startMenuRef.current.contains(e.target)) {
         setIsStartMenuOpen(false);
@@ -42,10 +50,9 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
 
   const [time, setTime] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     function updateClock() {
       const now = new Date();
-
       setTime(
         now.toLocaleTimeString([], {
           hour: "numeric",
@@ -55,9 +62,7 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
     }
 
     updateClock();
-
     const interval = setInterval(updateClock, 60000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -96,7 +101,7 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
               className={isFocused ? "task-button active" : "task-button"}
               onClick={() => onTaskButtonClick(window.id)}
             >
-              <img src={windowIcons[window.id]} alt={window.title} />
+              <img src={getIconForWindow(window.id)} alt={window.title} />
               {window.title}
             </button>
           );
