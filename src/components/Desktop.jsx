@@ -99,14 +99,6 @@ export default function Desktop() {
   function closeWindow(id) {
     const remaining = windows.filter(window => window.id !== id);
     setWindows(remaining);
-
-    if (remaining.length > 0) {
-      const next = remaining.reduce ((a, b)=> (a.zIndex > b.zIndex ? a : b));
-      navigateOrSync(next.id, next.title);
-    } else {
-      navigate("/");
-    }
-
   }
 
   function updateWindow(id, updates) {
