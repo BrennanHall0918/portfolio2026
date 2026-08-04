@@ -20,6 +20,14 @@ const ID_TO_PATH = {
   contact: "/contact",
 };
 
+// If path fails, it can fall back on this
+const ID_TO_TITLE = {
+  home: "Home",
+  projects: "Projects",
+  experience: "Experience",
+  contact: "Contact",
+};
+
 function pathForWindow(id) {
   if (ID_TO_PATH[id]) return ID_TO_PATH[id];
   if (id.startsWith("project-")) return `/projects/${id.replace("project-", "")}`;
@@ -62,10 +70,8 @@ export default function Desktop() {
     });
   }
 
-  // User clicks a desktop icon or Start Menu item — just change the URL,
-  // syncWindowFromRoute (via RouteWatcher) handles actually opening it.
   function openWindow(id) {
-    navigate(pathForWindow(id));
+    navigateOrSync(id, ID_TO_TITLE[id] ?? id);
   }
 
   // User clicks an already-open window or its taskbar button.
@@ -92,15 +98,15 @@ export default function Desktop() {
 
   function closeWindow(id) {
     const remaining = windows.filter(window => window.id !== id);
+    setWindows(remaining);
 
     if (remaining.length > 0) {
       const next = remaining.reduce ((a, b)=> (a.zIndex > b.zIndex ? a : b));
-      navigate(pathForWindow(next.id));
+      navigateOrSync(next.id, next.title);
     } else {
       navigate("/");
     }
 
-    setWindows(remaining);
   }
 
   function updateWindow(id, updates) {
@@ -108,6 +114,18 @@ export default function Desktop() {
       prevWindows.map(w => (w.id === id ? { ...w, ...updates } : w))
     );
   }
+
+  function navigateOrSync(windowId, title) {
+  const targetPath = pathForWindow(windowId);
+  const isDetail = windowId.startsWith("project-");
+  const detailId = isDetail ? windowId.replace("project-", "") : null;
+
+  if (location.pathname === targetPath) {
+    syncWindowFromRoute(isDetail ? "projects" : windowId, title, detailId);
+  } else {
+    navigate(targetPath);
+  }
+}
 
   const isMobile = useIsMobile();
 
