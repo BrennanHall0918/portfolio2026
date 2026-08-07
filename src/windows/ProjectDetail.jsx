@@ -2,7 +2,17 @@ import useFetch from "../hooks/useFetch";
 import "../styles/ProjectDetail.css";
 import folderIcon from "../assets/icons/folder.png";
 
+// The /projects/:id detail view - rendered in its own window.
+
+// projectId comes from getWindowContent.jsx, which extracted it from the
+// window's id ("project-<id>") - which itself traces back to useParams()
+// reading the real :id from the URL via RouteWatcher.
 export default function ProjectDetail({ projectId }) {
+  // Independent fetch of a single repo by numberic id - a different GitHub
+  // endpoint than Projects.jsx's repo list. This keeps the two windows
+  // fully decoupled: this component doesn't depend on Projects.jsx having
+  // already loading anything, so a deep-linking straight to a projects URL
+  // works correctly on its onw.
   const { data: repo, isLoading, error } = useFetch(
     `https://api.github.com/repositories/${projectId}`
   );
@@ -37,6 +47,7 @@ export default function ProjectDetail({ projectId }) {
         <h2>{repo.name}</h2>
       </div>
 
+      {/* Only one tab exists right now ("General") */}
       <div className="properties-tabs">
         <span className="properties-tab active">General</span>
       </div>
@@ -68,6 +79,8 @@ export default function ProjectDetail({ projectId }) {
         </div>
       </div>
 
+      {/* noopener: stops the new tab from getting a JS reference back to
+          this window. noreferrer: additionally strips the referrer header. */}
       <a
         href={repo.html_url}
         target="_blank"

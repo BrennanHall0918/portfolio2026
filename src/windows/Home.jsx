@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
+// Landing page content - brief intro, external profile links, and quick
+// navigation buttons into the two most relevant other windows.
 export default function Home() {
   const navigate = useNavigate();
 
@@ -19,6 +21,8 @@ export default function Home() {
         problem-solving and a quick ability to pick up new technologies.
       </p>
 
+      {/* External profile links - noopener/noreferrer from the same
+          security/privacy reasons as the GitHub link in ProjectDetail.jsx. */}
       <div className="home-quicklinks">
         <a
           href="https://github.com/BrennanHall0918"
@@ -39,6 +43,9 @@ export default function Home() {
         </a>
       </div>
 
+      {/* These call navigate() directly, so clicking them goes through
+          the exact same routing/window-sync system as every other
+          navigation in the app */}
       <div className="home-buttons">
         <button className="welcome-button" onClick={() => navigate("/projects")}>
           View Projects

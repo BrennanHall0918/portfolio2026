@@ -3,14 +3,20 @@ import useFetch from "../hooks/useFetch";
 import "../styles/Projects.css";
 import folderIcon from "../assets/icons/folder.png";
 
+// Styled as a Windows 98 Explorer/file browser window. Fetches my
+// public GitHub repo and displays each as a folder icon in
+// the content grid - double-clicking navigates to a details page.
 export default function Projects() {
   const navigate = useNavigate();
+
+  // Live data fetch via the reusable useFetch hook
   const { data: repos, isLoading, error } = useFetch(
     "https://api.github.com/users/BrennanHall0918/repos"
   );
 
   return (
     <div className="explorer">
+      {/* Decorative explorer bar menu. May add functionality later. */}
       <div className="explorer-menubar">
         <span>File</span>
         <span>Edit</span>
@@ -26,12 +32,14 @@ export default function Projects() {
         <button className="toolbar-btn" disabled>▲ Up</button>
       </div>
 
+      {/* Also decorative and disabled on purpose */}
       <div className="explorer-addressbar">
         <span>Address</span>
         <div className="address-input">C:\My Computer\Projects</div>
       </div>
 
       <div className="explorer-content">
+        {/* Loading state: fake indeterminate progress bar using CSS animation */}
         {isLoading && (
           <div className="explorer-status-message">
             <div className="loading-bar">
@@ -41,6 +49,7 @@ export default function Projects() {
           </div>
         )}
 
+        {/* Error state: styled as a fake error dialog rather than a raw error message */}
         {error && (
           <div className="explorer-error-dialog">
             <div className="explorer-error-titlebar">
@@ -53,6 +62,7 @@ export default function Projects() {
           </div>
         )}
 
+        {/* Success state: one "folder" per repo. Double click naviages. */}
         {!isLoading && !error && repos && repos.map((repo) => (
           <div
             key={repo.id}
