@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import Project from "../src/models/Project.js";
 import Counter from "../src/models/Counter.js";
-// import User from "../src/models/User.js";
+import User from "../src/models/User.js";
 
 dotenv.config();
 
@@ -61,11 +61,20 @@ async function seed() {
   await Counter.deleteMany({});
   console.log("4: counters cleared");
 
+  await User.deleteMany({});
+  console.log("4b: users cleared");
+
   for (const project of sampleProjects) {
     await Project.create(project);
   }
   console.log("5: projects inserted");
 
+  const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD, 12);
+  await User.create({
+    email: process.env.ADMIN_EMAIL.toLowerCase(),
+    passwordHash,
+    role: "admin",
+  });
   console.log(`Created admin user: ${process.env.ADMIN_EMAIL}`);
 
   await mongoose.disconnect();
