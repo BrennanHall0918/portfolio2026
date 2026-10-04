@@ -11,7 +11,7 @@ export async function getNextSequence(counterName, prefix) {
   const counter = await Counter.findByIdAndUpdate(
     counterName,
     { $inc: { seq: 1 } },
-    { new: true, upsert: true }
+    { returnDocument: "after", upsert: true }
   );
   return `${prefix}-${String(counter.seq).padStart(4, "0")}`;
 }

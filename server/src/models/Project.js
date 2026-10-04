@@ -33,11 +33,10 @@ const projectSchema = new mongoose.Schema(
   }
 );
 
-projectSchema.pre("save", async function (next) {
+projectSchema.pre("save", async function () {
   if (this.isNew && !this._id) {
     this._id = await getNextSequence("project", "PRJ");
   }
-  next();
 });
 
 export default mongoose.model("Project", projectSchema);
