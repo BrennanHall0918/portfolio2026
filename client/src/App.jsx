@@ -11,6 +11,7 @@ function App() {
         <Route path="projects/:id" element={<RouteWatcher windowId="projects" title="Projects" isDetail />} />
         <Route path="experience" element={<RouteWatcher windowId="experience" title="Experience" />} />
         <Route path="contact" element={<RouteWatcher windowId="contact" title="Contact" />} />
+        <Route path="login" element={<RouteWatcher windowId="login" title="Login" />} />
       </Route>
     </Routes>
   );

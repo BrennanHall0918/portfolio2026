@@ -3,6 +3,7 @@ import Projects from "../windows/Projects";
 import Experience from "../windows/Experience";
 import Contact from "../windows/Contact";
 import ProjectDetail from "../windows/ProjectDetail";
+import Login from "../windows/Login";
 
 // Static id-to-component map for the four fixed windows (desktop icons,
 // taskbar, and Start Menu all reference these same four ids). Project
@@ -13,6 +14,7 @@ const windowComponents = {
   projects: Projects,
   experience: Experience,
   contact: Contact,
+  login: Login,
 };
 
 // Single source for "given a window id, what should render 

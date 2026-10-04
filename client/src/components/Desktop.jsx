@@ -16,24 +16,20 @@ import "../styles/Desktop.css";
 // drilling through App.jsx
 export const DesktopSyncContext = createContext(null);
 
-// Maps a window's id to the real URL path that represents it.
-// Backbone of the whole routing/window-sync system: every
-// window that can be open always corresponds to exactly one path.
 const ID_TO_PATH = {
   home: "/",
   projects: "/projects",
   experience: "/experience",
   contact: "/contact",
+  login: "/login",
 };
 
-// Titles for the four "static" windows, used when opening
-// them directly (e.g. from a desktop icon) rather than via a route match
-// that already carries a title.
 const ID_TO_TITLE = {
   home: "Home",
   projects: "Projects",
   experience: "Experience",
   contact: "Contact",
+  login: "Login",
 };
 
 // Revers of ID_TO_PATH: given a window id, return its URL path.

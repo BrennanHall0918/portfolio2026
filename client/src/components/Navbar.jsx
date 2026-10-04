@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "../styles/Navbar.css";
+import { useAuth } from "../context/AuthContext";
 
 import homeIcon from "../assets/icons/home.png";
 import projectsIcon from "../assets/icons/projects.png";
@@ -24,6 +25,7 @@ const startMenuItems = [
   { id: "projects", title: "Projects" },
   { id: "experience", title: "Experience" },
   { id: "contact", title: "Contact" },
+  { id: "login", title: "Login"}
 ];
 
 // Taskbar buttons do need to handle dynamic "project-<id>" window ids
@@ -41,6 +43,7 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
   // Used below to determine which open window's taskbar button should
   // show as "pressed in".
   const highestZ = Math.max(...windows.map(w => w.zIndex), 0);
+  const { user } = useAuth();
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
 
   // Ref on the whole <nav>, not just the dropdown panel.
@@ -133,6 +136,12 @@ export default function Navbar({ windows, onTaskButtonClick, openWindow }) {
           );
         })}
       </section>
+
+      <button
+        className="task-button account-button"
+        onClick={() => openWindow("login")}>
+        {user ? user.email.split("@")[0] : "Log In"}
+      </button>
 
       <section className="clock">{time}</section>
     </nav>
