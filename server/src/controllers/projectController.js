@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Project from "../models/Project.js";
 
 export async function getAllProjects(req, res, next) {
@@ -5,15 +6,15 @@ export async function getAllProjects(req, res, next) {
     const { category, search } = req.query;
     const filter = {};
 
-    if (category) {
+    if (category && typeof category === "string") {
       filter.category = category;
     }
 
-    if (search) {
+    if (search && typeof search === "string") {
       filter.title = { $regex: search, $options: "i" };
     }
 
-    const projects = await Project.find(filter).sort({ createdAt: -1 });
+    const projects = await Project.find(mongoose.sanitizeFilter(filter)).sort({ createdAt: -1 });
     res.json(projects);
   } catch (err) {
     next(err);
@@ -73,7 +74,7 @@ export async function likeProject(req, res, next) {
     const project = await Project.findOneAndUpdate(
       { _id: req.params.id, likedBy: { $ne: req.user.id } },
       { $inc: { likes: 1 }, $addToSet: { likedBy: req.user.id } },
-      { new: true }
+      { returnDocument: "after" }
     );
 
     if (!project) {

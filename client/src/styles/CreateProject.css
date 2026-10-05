@@ -1,0 +1,50 @@
+.create-project-window {
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+.create-project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+}
+
+.create-project-form input[type="text"],
+.create-project-form textarea,
+.create-project-form select {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.4rem;
+  background: var(--win98-white);
+  box-shadow: var(--bevel-pressed);
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-field-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.submit-button {
+  align-self: flex-start;
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-raised);
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.submit-button:active:not(:disabled) {
+  box-shadow: var(--bevel-pressed);
+}
+
+.submit-button:disabled {
+  color: var(--win98-grey);
+  cursor: not-allowed;
+}

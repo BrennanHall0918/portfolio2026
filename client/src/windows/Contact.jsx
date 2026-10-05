@@ -4,8 +4,6 @@ import "../styles/Contact.css";
 const MESSAGE_MAX_LENGTH = 500;
 
 export default function Contact() {
-    // Single object holding all three controlled input values
-    // one handleInputChange below updates whichever field fired the event.
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -14,18 +12,11 @@ export default function Contact() {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // Generic controlled-input handler shared by all three fields - reads
-    // the input's 'name' attribute to know which key in forValues to
-    // update, so this one functions works for all three.
     function handleInputChange(e){
         const { name, value } = e.target;
         setFormValues((prev) => ({...prev, [name]: value }));
     }
 
-    // Pure function of current formValues - recalculated fresh every
-    // render (no separate state/useEffect needed, since it has no side
-    // effects and nothing async). Returns an object of only the fields
-    // that currently have a problem.
     function validate() {
         const errors = {};
 
@@ -52,10 +43,6 @@ export default function Contact() {
     const fieldErrors = validate();
     const hasErrors = Object.keys(fieldErrors).length > 0;
 
-    // Tracks which fields the user has actually clicked into and left
-    // at least once. Only show an error under a field once the
-    // user has actually typed it in, otherwise every field would show red
-    // before the user's touched anything.
     const [touchedFields, setTouchedFields] = useState({});
 
     function handleBlur(e) {
@@ -63,24 +50,14 @@ export default function Contact() {
     }
 
     function handleSubmit(e) {
-        // Stops the browser's native form submission (which would reload the
-        // page)
         e.preventDefault();
-        // Safety net alongside the submit button's disabled state -even if
-        // those two ever briefly disagree, submission still can't go through
-        // with active errors
         if (hasErrors) return;
 
-        // Will implement real submission in the future
-        // For now, just confirm it was "sent"
         setIsSubmitted(true);
         setFormValues({ name: "", email: "", message: ""});
         setTouchedFields({});
     }
 
-    // Ref on the scrollable form container, used below the auto-scroll the
-    // confirmation message into view after submitting. Had an issue with small
-    // windows where the confirmation message wouldn't show by default.
     const formContainerRef = useRef(null);
 
     useEffect(()=> {
@@ -93,9 +70,6 @@ export default function Contact() {
     }, [isSubmitted]);
 
     return (
-        // This section (not Window.jsx's .window-content) is the actual
-        // scrolling container - See Contact.css, which gives it its own
-        // height/overflow so formContainerRef has something real to scroll.
         <section className="contact-window" ref={formContainerRef}>
             <div className="contact-titlebar-note">
                 <span>Fill out the form below to send a message.</span>
@@ -115,7 +89,7 @@ export default function Contact() {
                     className={touchedFields.name && fieldErrors.name ? "invalid" : ""}
                     />
                     {touchedFields.name && fieldErrors.name && (
-                        <span className="field-error">{fieldErrors.name}</span>
+                        <span className="field-error" aria-live="polite">{fieldErrors.name}</span>
                     )}
                 </div>
 
@@ -132,7 +106,7 @@ export default function Contact() {
                     className={touchedFields.email && fieldErrors.email ? "invalid" : ""} 
                     />
                     {touchedFields.email && fieldErrors.email && (
-                        <span className="field-error">{fieldErrors.email}</span>
+                        <span className="field-error" aria-live="polite">{fieldErrors.email}</span>
                     )}
                 </section>
 
@@ -151,7 +125,7 @@ export default function Contact() {
                         {formValues.message.length}/{MESSAGE_MAX_LENGTH}
                     </div>
                     {touchedFields.message && fieldErrors.message && (
-                        <span className="field-error">{fieldErrors.message}</span>
+                        <span className="field-error" aria-live="polite">{fieldErrors.message}</span>
                     )}
                 </section>
 

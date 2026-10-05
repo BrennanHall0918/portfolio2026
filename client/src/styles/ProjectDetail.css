@@ -76,3 +76,15 @@
   gap: 0.75rem;
   padding: 2rem;
 }
+
+.properties-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.properties-actions button.properties-link-button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}

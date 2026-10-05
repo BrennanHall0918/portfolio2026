@@ -13,8 +13,4 @@ export const createProjectSchema = z.object({
   featured: z.boolean().optional(),
 }).strict();
 
-// Same shape but every field optional, for PATCH — and explicitly does
-// NOT include "likes", so a client can never set the like count
-// directly through the update route, only through the dedicated
-// atomic /like endpoint.
 export const updateProjectSchema = createProjectSchema.partial().strict();

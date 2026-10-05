@@ -4,7 +4,7 @@ export function validate(schema) {
     if (!result.success) {
       return res.status(400).json({ message: "Invalid request data" });
     }
-    req.body = result.data; // replaces req.body with the parsed/sanitized version
+    req.body = result.data;
     next();
   };
 }

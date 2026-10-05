@@ -166,3 +166,56 @@
   color: var(--win98-grey);
   margin-top: 0.5rem;
 }
+
+.explorer-searchbar {
+  padding: 0.3rem 0.5rem;
+  background: var(--win98-light-grey);
+  border-bottom: 1px solid var(--win98-grey);
+}
+
+.explorer-searchbar input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  background: var(--win98-white);
+  box-shadow: var(--bevel-pressed);
+  border: none;
+}
+
+.explorer-item-likes {
+  margin-top: 2px;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+  color: var(--win98-black);
+  padding: 1px 4px;
+}
+
+.like-button:hover {
+  background: var(--win98-light-grey);
+  box-shadow: var(--bevel-raised);
+}
+
+.like-count {
+  font-size: 0.7rem;
+  color: var(--win98-grey);
+}
+
+.explorer-admin-bar {
+  padding: 0.3rem 0.5rem;
+  background: var(--win98-light-grey);
+  border-bottom: 1px solid var(--win98-grey);
+}
+
+.explorer-admin-bar .toolbar-btn {
+  text-decoration: none;
+  color: var(--win98-black);
+  display: inline-block;
+}

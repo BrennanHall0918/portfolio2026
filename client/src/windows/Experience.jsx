@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "../styles/Experience.css";
 
-// Static content data - resume info pulled out into arrays so the JSX
-// below stays purely presentational rather than mixed content and markup together.
 const experienceEntries = [
   {
     id: "freelance",
@@ -92,13 +90,9 @@ const educationEntries = [
 
 const tabs = ["Experience", "Skills", "Projects", "Education"];
 
-// Tabbed panel covering work histy, skills, personal projects, and education
 export default function Experience() {
   const [activeTab, setActiveTab] = useState("Experience");
 
-  // Tracks which single timeline entry (by id/name) is currently expanded
-  // to show its bullet points - shared between the Experience and
-  // Projects tabs, since both use the same expandable-timeline pattern.
   const [expandedId, setExpandedId] = useState(null);
 
   function toggleExpanded(id) {
@@ -120,10 +114,6 @@ export default function Experience() {
       </div>
 
       <div className="experience-content">
-        {/* Work histoy: vertical timeline with connector line + dot
-            markers (see Experience.css). Clicking a role's header
-            expands/collapses its bullet points, keeping the initial view
-            scannable instead of a wall of text. */}
         {activeTab === "Experience" && (
           <div className="timeline">
             {experienceEntries.map((entry) => (
@@ -150,7 +140,6 @@ export default function Experience() {
           </div>
         )}
 
-        {/* Skills grid: responsive grid of skils grouped by category */}
         {activeTab === "Skills" && (
           <div className="skills-grid">
             {skillCategories.map((group) => (
@@ -166,8 +155,6 @@ export default function Experience() {
           </div>
         )}
 
-        {/* Personal projects, reusing the same expandable-timeline patter
-            as the Experience tab above. */}
         {activeTab === "Projects" && (
           <div className="timeline">
             {projectEntries.map((project) => (
@@ -193,8 +180,6 @@ export default function Experience() {
           </div>
         )}
 
-        {/* Simple static list - no expand/collapse needed since each
-            entry is already just once line. */}
         {activeTab === "Education" && (
           <div className="education-list">
             {educationEntries.map((edu) => (

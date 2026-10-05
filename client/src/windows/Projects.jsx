@@ -1,22 +1,70 @@
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import { useAuth } from "../context/AuthContext";
+import { apiRequest } from "../utils/api";
 import "../styles/Projects.css";
 import folderIcon from "../assets/icons/folder.png";
 
-// Styled as a Windows 98 Explorer/file browser window. Fetches my
-// public GitHub repo and displays each as a folder icon in
-// the content grid - double-clicking navigates to a details page.
 export default function Projects() {
   const navigate = useNavigate();
+  const { user, authedRequest } = useAuth();
 
-  // Live data fetch via the reusable useFetch hook
-  const { data: repos, isLoading, error } = useFetch(
-    "https://api.github.com/users/BrennanHall0918/repos"
-  );
+  const [projects, setProjects] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const fetchProjects = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const query = search ? `?search=${encodeURIComponent(search)}` : "";
+      const data = await apiRequest(`/api/projects${query}`);
+      setProjects(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [search]);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function run() {
+      if (!isCancelled) {
+        await fetchProjects();
+      }
+    }
+    run();
+
+    return () => { isCancelled = true; };
+  }, [fetchProjects]);
+
+  useEffect(() => {
+    function handleProjectsChanged() {
+      fetchProjects();
+    }
+    window.addEventListener("projects:changed", handleProjectsChanged);
+    return () => window.removeEventListener("projects:changed", handleProjectsChanged);
+  }, [fetchProjects]);
+
+  async function handleLike(e, projectId) {
+    e.stopPropagation();
+    try {
+      const updated = await authedRequest(`/api/projects/${projectId}/like`, {
+        method: "POST",
+      });
+      setProjects((prev) =>
+        prev.map((p) => (p.id === projectId ? updated : p))
+      );
+    } catch (err) {
+      alert(err.message);
+    }
+  }
 
   return (
     <div className="explorer">
-      {/* Decorative explorer bar menu. May add functionality later. */}
       <div className="explorer-menubar">
         <span>File</span>
         <span>Edit</span>
@@ -32,14 +80,33 @@ export default function Projects() {
         <button className="toolbar-btn" disabled>▲ Up</button>
       </div>
 
-      {/* Also decorative and disabled on purpose */}
       <div className="explorer-addressbar">
         <span>Address</span>
         <div className="address-input">C:\My Computer\Projects</div>
       </div>
 
+      <div className="explorer-searchbar">
+        <label htmlFor="project-search" className="visually-hidden">
+          Search projects
+        </label>
+        <input
+          id="project-search"
+          type="text"
+          placeholder="Search projects..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      {user?.role === "admin" && (
+        <div className="explorer-admin-bar">
+          <a href="/projects/new" className="toolbar-btn" onClick={(e) => { e.preventDefault(); navigate("/projects/new"); }}>
+            + Add Project
+          </a>
+        </div>
+      )}
+
       <div className="explorer-content">
-        {/* Loading state: fake indeterminate progress bar using CSS animation */}
         {isLoading && (
           <div className="explorer-status-message">
             <div className="loading-bar">
@@ -49,12 +116,9 @@ export default function Projects() {
           </div>
         )}
 
-        {/* Error state: styled as a fake error dialog rather than a raw error message */}
         {error && (
           <div className="explorer-error-dialog">
-            <div className="explorer-error-titlebar">
-              <span>Error</span>
-            </div>
+            <div className="explorer-error-titlebar"><span>Error</span></div>
             <div className="explorer-error-body">
               <p>Could not read from C:\My Computer\Projects</p>
               <p className="error-detail">{error}</p>
@@ -62,22 +126,48 @@ export default function Projects() {
           </div>
         )}
 
-        {/* Success state: one "folder" per repo. Double click naviages. */}
-        {!isLoading && !error && repos && repos.map((repo) => (
+        {!isLoading && !error && projects && projects.length === 0 && (
+          <div className="explorer-status-message">
+            <span>No projects found.</span>
+          </div>
+        )}
+
+        {!isLoading && !error && projects && projects.length > 0 && projects.map((project) => (
           <div
-            key={repo.id}
+            key={project.id}
             className="explorer-item"
-            onDoubleClick={() => navigate(`/projects/${repo.id}`)}
+            role="button"
+            tabIndex={0}
+            onDoubleClick={() => navigate(`/projects/${project.id}`)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(`/projects/${project.id}`);
+              }
+            }}
           >
             <img src={folderIcon} alt="" />
-            <span>{repo.name}</span>
+            <span>{project.title}</span>
+            <div className="explorer-item-likes">
+              {user ? (
+                <button
+                  className="like-button"
+                  onClick={(e) => handleLike(e, project.id)}
+                  aria-label={`Like ${project.title}`}
+                >
+                  ♥ {project.likes}
+                </button>
+              ) : (
+                <span className="like-count">♥ {project.likes}</span>
+              )}
+            </div>
           </div>
         ))}
       </div>
 
       <div className="explorer-statusbar">
         <span>
-          {isLoading ? "Loading..." : error ? "Error" : `${repos?.length ?? 0} object(s)`}
+          {isLoading ? "Loading..." : error ? "Error" : `${projects?.length ?? 0} object(s)`}
         </span>
       </div>
     </div>
